@@ -2,12 +2,10 @@
   "name": "ktodoapp-client",
   "version": "1.0.0",
   "description": "Simple todoapp on NodeJS & Svelte",
+  "main": "",
   "scripts": {
-    "build": "rollup -c",
-    "autobuild": "rollup -c -w",
-    "serve": "sirv public --single --no-clear",
-    "serve:dev": "sirv public --single --no-clear --dev",
-    "dev": "run-p start:dev autobuild"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "author": "Alex Krol <krolmail@list.ru>",
   "license": "MIT",
