@@ -5,7 +5,7 @@
   "scripts": {
     "install:back": "cd server && npm install",
     "install:front": "cd client && npm install",
-    "install": "npm run install:back && npm run install:front",
+    "install": "npm install && npm run install:back && npm run install:front",
     "serve:back": "cd server && npm run serve",
     "serve:front": "cd client && npm run serve",
     "dev": "concurrently \"npm run serve:back\" \"npm run serve:front\""
