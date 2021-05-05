@@ -7,8 +7,8 @@ const todoItemSchema = mongoose.Schema({
   description: {type: String, default: ''}
 });
 
-todoItemSchema.statics.addItem = function (data, cb) {
-  return new this(data).save(cb);
+todoItemSchema.statics.addItem = function (item, cb) {
+  return item.save(cb);
 };
 
 todoItemSchema.statics.findItemById = function (_id, cb) {
@@ -20,11 +20,11 @@ todoItemSchema.statics.findItemById = function (_id, cb) {
 };
 
 todoItemSchema.statics.findItems = function (req, cb) {
-  return this.find(tools.removeEmptyNotFalse(req), cb);
+  return this.find(tools.removeMyEmpty(req), cb);
 };
 
-todoItemSchema.methods.delItem = function (cb) {
-  this.model('TodoItem').deleteOne({_id: this._id});
+todoItemSchema.methods.deleteItem = function (cb) {
+  this.model('TodoItem').deleteOne({_id: this._id}, cb);
 };
 
 const TodoItem = mongoose.model('TodoItem', todoItemSchema);

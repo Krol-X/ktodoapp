@@ -1,22 +1,29 @@
 const _ = require('lodash');
 const mongoose = require('mongoose');
 
-const removeEmptyNotFalse = (obj) => {
-  return _.reduce(
-    _.filter(Object.keys(obj), key => (obj[key] === false) || !!obj[key]),
-    (result, key) => Object.assign({}, obj, {
-      [key]: typeof obj[key] === 'object' ? removeEmpty(obj[key]) : obj[key]
-    })
-    //{...result, [key]: typeof obj[key] === "object"? removeEmpty(obj[key]): obj[key]} // ES6
-  ) || {};
+const removeMyEmpty = (obj) => {
+  let result = {};
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+      if ((value === 0 || value === false) && (!_.isEmpty(value))) {
+        if (typeof value == 'object') {
+          result[key] = removeMyEmpty(value);
+        } else {
+          result[key] = value;
+        }
+      }
+    }
+  }
+  return obj;
 };
 
 const isMongooseModel = (obj) => {
-  obj = obj || {}
-  return obj.prototype instanceof mongoose.Model
-}
+  obj = obj || {};
+  return obj.prototype instanceof mongoose.Model;
+};
 
 module.exports = {
-  removeEmptyNotFalse,
+  removeMyEmpty,
   isMongooseModel
-}
+};
